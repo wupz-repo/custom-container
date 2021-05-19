@@ -1,0 +1,43 @@
+{
+  "listeners": {
+    "*:9000": {
+      "pass": "routes"
+    }
+  },
+  "routes": [
+    {
+      "match": {
+        "uri": [
+          "!/assets/*",
+          "*.php",
+          "*.php/*"
+        ]
+      },
+      "action": {
+        "pass": "applications/yii/direct"
+      }
+    },
+    {
+      "action": {
+        "share": "/opt/code/web/",
+        "fallback": {
+          "pass": "applications/yii/index"
+        }
+      }
+    }
+  ],
+  "applications": {
+    "yii": {
+      "type": "php",
+      "targets": {
+        "direct": {
+          "root": "/opt/code/web/"
+        },
+        "index": {
+          "root": "/opt/code/web/",
+          "script": "index.php"
+        }
+      }
+    }
+  }
+}
